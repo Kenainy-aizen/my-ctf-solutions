@@ -1,9 +1,10 @@
 import base64
 import json
-from urllib.parse import unquote
+from urllib.parse import unquote 
+from urllib.parse import quote
 
 # 1. Cookie récupéré (encodé URL)
-cookie_encoded = "EGAgHwQ1IxYYMSQYGSZxTUksPFVHYDEQCC0%2FGBlgaVVIcmNHW3JjVRY%3D"
+cookie_encoded = "EGAgHwQ1IxYYMSQYGSZxTUksPFVHYDEQCC0%2FGBlgaVVIJDURDSQ1VRY%3D"
 
 # 2. Décoder l'URL -> Base64 pur
 cookie = unquote(cookie_encoded)
@@ -22,3 +23,14 @@ for i in range(len(chiffre)):
 
 # 6. Affichage de la clé (en bytes)
 print(key)  # b'qw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8J'
+key1 = bytearray()
+key =b'kBSw'
+print(key)
+clair1 = b'{"showpassword":"yes","bgcolor":"#ffffff"}'
+for i in range(len(clair1)):
+    key1.append(clair1[i] ^ key[i % len(key)])
+
+print(key1)  # Affiche le texte chiffré pour le nouveau message
+key1 = base64.b64encode(key1).decode()
+key2 = quote(key1)
+print(key2)
